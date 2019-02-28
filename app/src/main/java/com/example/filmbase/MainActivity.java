@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intentSearch = new Intent(this, SearchActivity.class);
                 startActivity(intentSearch);
                 break;
+            case R.id.btnRandomMain:
+
+                break;
 
         }
 
