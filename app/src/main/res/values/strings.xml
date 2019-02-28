@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FilmBase</string>
+    <string name="want">Want</string>
+    <string name="seen">Seen</string>
+    <string name="search">Search</string>
+    <string name="random">Random</string>
 </resources>
