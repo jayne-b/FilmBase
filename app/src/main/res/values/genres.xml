@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="genre_array">
+        <item>Genre</item>
+        <item>Action</item>
+        <item>Adventure</item>
+        <item>Animation</item>
+        <item>Anime</item>
+        <item>Childrens</item>
+        <item>Comedy</item>
+        <item>Documentary</item>
+        <item>Drama</item>
+        <item>Family</item>
+        <item>Fantasy</item>
+        <item>Historical</item>
+        <item>Historical Fiction</item>
+        <item>Horror</item>
+        <item>Indie</item>
+        <item>Musical</item>
+        <item>Mystery</item>
+        <item>Political</item>
+        <item>Romance</item>
+        <item>Saga</item>
+        <item>Satire</item>
+        <item>Sci-fi</item>
+        <item>Thriller</item>
+        <item>War</item>
+        <item>Westerns</item>
+    </string-array>
+
+</resources>
