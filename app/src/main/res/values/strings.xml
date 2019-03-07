@@ -11,4 +11,5 @@
     <string name="Genre">genre</string>
     <string name="all">All</string>
     <string name="want">Want</string>
+    <string name="repick">Repick</string>
 </resources>

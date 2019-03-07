@@ -1,5 +1,6 @@
 package com.example.filmbase;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentSearch);
                 break;
             case R.id.btnRandomMain:
+                Intent intentRandom = new Intent(this, RandomActivity.class);
+                startActivity(intentRandom);
 
                 break;
 
