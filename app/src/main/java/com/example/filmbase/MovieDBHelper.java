@@ -10,35 +10,10 @@ public class MovieDBHelper extends SQLiteOpenHelper {
 
     private static  final String DATABASE_NAME = "movies.db";
 
-    private Integer mOpenCounter = 0;
-    private static MovieDBHelper instance;
-    private static SQLiteOpenHelper MovieDBHelper;
-    private SQLiteDatabase mDatabase;
 
     public MovieDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
-    /*public static synchronized MovieDBHelper getInstance() {
-        return instance;
-    }
-
-
-    public synchronized SQLiteDatabase openDatabase() {
-        mOpenCounter += 1;
-        if(mOpenCounter == 1) {
-            mDatabase = MovieDBHelper.getWritableDatabase();
-        }
-        return mDatabase;
-    }
-
-    public synchronized void closeDatabase() {
-        mOpenCounter -= 1;
-        if(mOpenCounter == 0) {
-            mDatabase.close();
-        }
-    } */
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {

@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 
+import java.util.ArrayList;
+
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
     //String movie = findViewById(R.id.etTitleSearch).toString();
@@ -54,16 +56,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         ListView listView = findViewById(R.id.lvMoviesSearch);
         String input = editText.getText().toString().trim();
         SharedPreferences search = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        search.edit().putString("input", input);
+        SharedPreferences.Editor editor = search.edit();
+        editor.putString("input", input);
+        editor.commit();
 
         if(output.getCheckedRadioButtonId() == findViewById(R.id.rbSeenSearch).getId()) {
             MovieActionsSeen actions = new MovieActionsSeen(getApplicationContext());
-            //ArrayList<String> movieList = actions.getMovieSeenSearch();;
-            ArrayAdapter arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, actions.getMovieSeenSearch());
+            ArrayList<MoviesSeen> movieList = actions.getMovieSeenSearch();
+            ArrayAdapter<MoviesSeen> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, movieList);
             listView.setAdapter(arrayAdapter);
 
         }
     }
-
-
 }
