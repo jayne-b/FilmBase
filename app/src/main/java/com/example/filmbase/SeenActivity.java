@@ -40,7 +40,7 @@ public class SeenActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (view.getId()) {
             case R.id.btnAddSeen:
-                MovieActionsSeen actions = new MovieActionsSeen();
+                MovieActionsSeen actions = new MovieActionsSeen(getApplicationContext());
                 MoviesSeen movies = new MoviesSeen();
                 movies.state = "s";
                 movies.title = etTitleSeen.getText().toString();

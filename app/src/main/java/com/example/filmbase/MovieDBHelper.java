@@ -19,7 +19,7 @@ public class MovieDBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static synchronized MovieDBHelper getInstance() {
+    /*public static synchronized MovieDBHelper getInstance() {
         return instance;
     }
 
@@ -37,7 +37,7 @@ public class MovieDBHelper extends SQLiteOpenHelper {
         if(mOpenCounter == 0) {
             mDatabase.close();
         }
-    }
+    } */
 
 
     @Override

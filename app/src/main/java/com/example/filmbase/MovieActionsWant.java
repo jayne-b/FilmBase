@@ -1,6 +1,7 @@
 package com.example.filmbase;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -11,14 +12,18 @@ import static com.example.filmbase.MoviesWant.TABLE;
 
 public class MovieActionsWant {
     private MoviesWant moviedb;
+    private MovieDBHelper movieDBHelper;
 
-    public MovieActionsWant() {
+
+    public MovieActionsWant(Context ctx) {
         moviedb = new MoviesWant();
+        movieDBHelper  = new MovieDBHelper(ctx);
+
     }
 
     public int addWant(MoviesWant movies) {
 
-        SQLiteDatabase db = MovieDBHelper.getInstance().openDatabase();
+        SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(MoviesWant.KEY_state, moviedb.getState());
         values.put(MoviesWant.KEY_title, moviedb.getTitle());
@@ -36,14 +41,14 @@ public class MovieActionsWant {
 
     public void delete(int id) {
 
-        SQLiteDatabase db = MovieDBHelper.getInstance().openDatabase();
+        SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         db.delete(TABLE, null, null);
         db.close();
     }
 
     public void updateWant(MoviesWant movies) {
 
-        SQLiteDatabase db = MovieDBHelper.getInstance().openDatabase();
+        SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(MoviesWant.KEY_state, movies.getState());
@@ -61,7 +66,7 @@ public class MovieActionsWant {
         MoviesWant moviesWantList = new MoviesWant();
         List<MoviesWant> moviesWantLists = new ArrayList<>();
 
-        SQLiteDatabase db = MovieDBHelper.getInstance().openDatabase();
+        SQLiteDatabase db = movieDBHelper.getReadableDatabase();
         String selectQuery = "SELECT TITLE " +
                 MoviesWant.KEY_title + "," +
                 MoviesWant.KEY_state + "," +
@@ -89,7 +94,7 @@ public class MovieActionsWant {
         }
 
         cursor.close();
-        MovieDBHelper.getInstance().closeDatabase();
+        db.close();
         return moviesWantLists;
     }
 

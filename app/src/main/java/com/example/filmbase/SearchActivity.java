@@ -1,5 +1,6 @@
 package com.example.filmbase;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,12 +13,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 
-import java.util.Collections;
-import java.util.List;
-
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
     //String movie = findViewById(R.id.etTitleSearch).toString();
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +27,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         Button btnBackSearch = findViewById(R.id.btnBackSearch);
         btnSearchSearch.setOnClickListener(this);
         btnBackSearch.setOnClickListener(this);
+        context = getApplicationContext();
+    }
+
+    public static Context getContextOfApplication(){
+        return context;
     }
 
     public void onClick(View view) {
@@ -49,12 +53,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         RadioGroup output = findViewById(R.id.rgSearch);
         ListView listView = findViewById(R.id.lvMoviesSearch);
         String input = editText.getText().toString().trim();
-        SharedPreferences search = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences search = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         search.edit().putString("input", input);
 
         if(output.getCheckedRadioButtonId() == findViewById(R.id.rbSeenSearch).getId()) {
-            List<String> movieList = Collections.singletonList(MoviesSeen.KEY_title);
-            ArrayAdapter arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, movieList);
+            MovieActionsSeen actions = new MovieActionsSeen(getApplicationContext());
+            //ArrayList<String> movieList = actions.getMovieSeenSearch();;
+            ArrayAdapter arrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, actions.getMovieSeenSearch());
             listView.setAdapter(arrayAdapter);
 
         }

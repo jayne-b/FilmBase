@@ -1,6 +1,7 @@
 package com.example.filmbase;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,17 +10,19 @@ import android.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieActionsSeen  {
+public class MovieActionsSeen {
     private MoviesSeen moviedb;
+    private MovieDBHelper movieDBHelper;
 
-    public MovieActionsSeen() {
+    public MovieActionsSeen(Context ctx) {
         moviedb = new MoviesSeen();
+        movieDBHelper  = new MovieDBHelper(ctx);
     }
-
+    
 
     public int addSeen(MoviesSeen movies) {
 
-        SQLiteDatabase db = MovieDBHelper.getInstance().openDatabase();
+        SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(MoviesSeen.KEY_state, movies.getState());
         values.put(MoviesSeen.KEY_title, movies.getTitle());
@@ -35,14 +38,14 @@ public class MovieActionsSeen  {
 
     public void delete(int id) {
 
-        SQLiteDatabase db = MovieDBHelper.getInstance().openDatabase();
+        SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         db.delete(MoviesSeen.TABLE, null, null);
-        MovieDBHelper.getInstance().closeDatabase();
+        db.close();
     }
 
     public void updateSeen(MoviesSeen movies) {
 
-        SQLiteDatabase db = MovieDBHelper.getInstance().openDatabase();
+        SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(MoviesSeen.KEY_state, movies.getState());
@@ -60,7 +63,7 @@ public class MovieActionsSeen  {
         MoviesSeen moviesSeenList = new MoviesSeen();
         List<MoviesSeen> moviesSeenLists = new ArrayList<>();
 
-        SQLiteDatabase db = MovieDBHelper.getInstance().openDatabase();
+        SQLiteDatabase db = movieDBHelper.getReadableDatabase();
         String selectQuery = "SELECT TITLE " +
                 MoviesSeen.KEY_title + "," +
                 MoviesSeen.KEY_state + "," +
@@ -84,17 +87,18 @@ public class MovieActionsSeen  {
         }
 
         cursor.close();
-        MovieDBHelper.getInstance().closeDatabase();
+        db.close();
         return moviesSeenLists;
     }
 
     public List<MoviesSeen> getMovieSeenSearch() {
         MoviesSeen moviesSeenList = new MoviesSeen();
         ArrayList<MoviesSeen> moviesSeenLists = new ArrayList<>();
-        SharedPreferences input = PreferenceManager.getDefaultSharedPreferences(null);
+        Context applicationContext = SearchActivity.getContextOfApplication();
+        SharedPreferences input = PreferenceManager.getDefaultSharedPreferences(applicationContext);
         String search = input.getString("input", null);
 
-        SQLiteDatabase db = MovieDBHelper.getInstance().openDatabase();
+        SQLiteDatabase db = movieDBHelper.getReadableDatabase();
         String searchQuery = "SELECT " +
                 MoviesSeen.KEY_title + "," +
                 MoviesSeen.KEY_state +
@@ -112,7 +116,7 @@ public class MovieActionsSeen  {
         }
 
         cursor.close();
-        MovieDBHelper.getInstance().closeDatabase();
+        db.close();
         return moviesSeenLists;
     }
 

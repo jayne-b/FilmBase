@@ -45,7 +45,7 @@ public class WantActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (view.getId()) {
             case R.id.btnAddWant:
-                MovieActionsWant actions = new MovieActionsWant();
+                MovieActionsWant actions = new MovieActionsWant(getApplicationContext());
                 MoviesWant movies = new MoviesWant();
                 movies.state = "w";
                 movies.title = etTitleWant.getText().toString();
