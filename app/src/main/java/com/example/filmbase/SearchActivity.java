@@ -1,13 +1,64 @@
 package com.example.filmbase;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.RadioGroup;
 
-public class SearchActivity extends AppCompatActivity {
+import java.util.Collections;
+import java.util.List;
+
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
+
+    //String movie = findViewById(R.id.etTitleSearch).toString();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        Button btnSearchSearch = findViewById(R.id.btnSearchSearch);
+        Button btnBackSearch = findViewById(R.id.btnBackSearch);
+        btnSearchSearch.setOnClickListener(this);
+        btnBackSearch.setOnClickListener(this);
     }
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnSearchSearch:
+                search();
+
+                break;
+            case R.id.btnBackSearch:
+                Intent intentMain = new Intent(this, MainActivity.class);
+                startActivity(intentMain);
+                break;
+        }
+
+    }
+
+    private void search() {
+        EditText editText = findViewById(R.id.etTitleSearch);
+        RadioGroup output = findViewById(R.id.rgSearch);
+        ListView listView = findViewById(R.id.lvMoviesSearch);
+        String input = editText.getText().toString().trim();
+        SharedPreferences search = PreferenceManager.getDefaultSharedPreferences(this);
+        search.edit().putString("input", input);
+
+        if(output.getCheckedRadioButtonId() == findViewById(R.id.rbSeenSearch).getId()) {
+            List<String> movieList = Collections.singletonList(MoviesSeen.KEY_title);
+            ArrayAdapter arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, movieList);
+            listView.setAdapter(arrayAdapter);
+
+        }
+    }
+
+
 }
