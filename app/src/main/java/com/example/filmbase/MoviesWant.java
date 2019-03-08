@@ -25,6 +25,13 @@ public class MoviesWant {
     public MoviesWant(){
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -61,6 +68,7 @@ public class MoviesWant {
     public int getDay() {
         return day;
     }
+
     public void setDay(int day) {
         this.day = day;
     }

@@ -4,12 +4,14 @@ public class MoviesSeen {
 
     public static final String TABLE = "Movie";
 
+    public static final String KEY_ID = "id";
     public static final String KEY_state = "state";
     public static final String KEY_title = "title";
     public static final String KEY_genre = "genre";
     public static final String KEY_comments = "comments";
     public static final String KEY_ratings = "ratings";
 
+    public int id;
     public String state;
     public String title;
     public String genre;
@@ -17,6 +19,14 @@ public class MoviesSeen {
     public int ratings;
 
     public MoviesSeen() {            }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

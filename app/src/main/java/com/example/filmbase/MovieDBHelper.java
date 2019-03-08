@@ -19,8 +19,9 @@ public class MovieDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String CREATE_TABLE_MOVIE_SEEN = "CREATE TABLE IF NOT EXISTS " + MoviesSeen.TABLE + "("
+                + MoviesSeen.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + MoviesSeen.KEY_state + " TEXT, "
-                + MoviesSeen.KEY_title + " TEXT, "
+                + MoviesSeen.KEY_title + " TEXT NOT NULL, "
                 + MoviesSeen.KEY_genre + " TEXT, "
                 + MoviesSeen.KEY_comments + " TEXT, "
                 + MoviesSeen.KEY_ratings + " INTEGER )";
@@ -28,8 +29,9 @@ public class MovieDBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_MOVIE_SEEN);
 
         String CREATE_TABLE_MOVIE_WANT = "CREATE TABLE IF NOT EXISTS " + MoviesWant.TABLE + "("
+                + MoviesWant.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + MoviesWant.KEY_state + " TEXT, "
-                + MoviesWant.KEY_title + " TEXT, "
+                + MoviesWant.KEY_title + " TEXT NOT NULL, "
                 + MoviesWant.KEY_genre + " TEXT, "
                 + MoviesWant.KEY_comments + " TEXT, "
                 + MoviesWant.KEY_day + " INTEGER, "

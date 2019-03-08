@@ -51,9 +51,9 @@ public class WantActivity extends AppCompatActivity implements View.OnClickListe
                 movies.title = etTitleWant.getText().toString();
                 movies.genre = spGenreWant.getSelectedItem().toString();
                 movies.comments = etCommentsWant.getText().toString();
-                movies.day = Integer.parseInt(etDayWant.getText().toString());
+                movies.day = Integer.parseInt("0" + etDayWant.getText().toString());
                 movies.month = spMonthWant.getSelectedItem().toString();
-                movies.year = Integer.parseInt(etYearWant.getText().toString());
+                movies.year = Integer.parseInt("0" + etYearWant.getText().toString());
                 actions.addWant(movies);
                 Toast.makeText(this, "Movie Added", Toast.LENGTH_LONG).show();
                 finish();
