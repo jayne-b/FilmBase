@@ -10,6 +10,9 @@ import android.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.filmbase.MoviesWant.*;
+
+
 public class MovieActionsWant {
     //private MoviesWant moviesWant;
     private MovieDBHelper movieDBHelper;
@@ -42,7 +45,7 @@ public class MovieActionsWant {
     public void delete(int id) {
 
         SQLiteDatabase db = movieDBHelper.getWritableDatabase();
-        db.delete(MoviesWant.TABLE, MoviesWant.KEY_ID + "= ?", new String[] { String.valueOf(id)});
+        db.delete(TABLE, KEY_ID + "= ?", new String[] { String.valueOf(id)});
         db.close();
     }
 
@@ -51,16 +54,16 @@ public class MovieActionsWant {
         SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(MoviesWant.KEY_ID, movies.getId());
-        values.put(MoviesWant.KEY_state, movies.getState());
-        values.put(MoviesWant.KEY_title, movies.getTitle());
-        values.put(MoviesWant.KEY_genre, movies.getGenre());
-        values.put(MoviesWant.KEY_comments, movies.getComments());
-        values.put(MoviesWant.KEY_day, movies.getDay());
-        values.put(MoviesWant.KEY_month, movies.getMonth());
-        values.put(MoviesWant.KEY_year, movies.getYear());
+        values.put(KEY_ID, movies.getId());
+        values.put(KEY_state, movies.getState());
+        values.put(KEY_title, movies.getTitle());
+        values.put(KEY_genre, movies.getGenre());
+        values.put(KEY_comments, movies.getComments());
+        values.put(KEY_day, movies.getDay());
+        values.put(KEY_month, movies.getMonth());
+        values.put(KEY_year, movies.getYear());
 
-        db.update(MoviesWant.TABLE, values, MoviesWant.KEY_ID + "= ?", new String[] { String.valueOf(movies.id)});
+        db.update(TABLE, values, KEY_ID + "= ?", new String[] { String.valueOf(movies.id)});
         db.close();
     }
     public ArrayList<HashMap<String, String>> getMovieList() {
@@ -69,23 +72,23 @@ public class MovieActionsWant {
 
         SQLiteDatabase db = movieDBHelper.getReadableDatabase();
         String selectQuery = "SELECT " +
-                MoviesWant.KEY_ID + "," +
-                MoviesWant.KEY_title + "," +
-                MoviesWant.KEY_state + "," +
-                MoviesWant.KEY_genre + "," +
-                MoviesWant.KEY_comments + "," +
-                MoviesWant.KEY_day + "," +
-                MoviesWant.KEY_month + "," +
-                MoviesWant.KEY_year +
-                " FROM " + MoviesWant.TABLE;
+                KEY_ID + "," +
+                KEY_title + "," +
+                KEY_state + "," +
+                KEY_genre + "," +
+                KEY_comments + "," +
+                KEY_day + "," +
+                KEY_month + "," +
+                KEY_year +
+                " FROM " + TABLE;
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> moviesWant = new HashMap<String, String>();
-                moviesWant.put("id", cursor.getString(cursor.getColumnIndex(MoviesWant.KEY_ID)));
-                moviesWant.put("title", cursor.getString(cursor.getColumnIndex(MoviesWant.KEY_title)));
+                moviesWant.put("id", cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                moviesWant.put("title", cursor.getString(cursor.getColumnIndex(KEY_title)));
                 moviesWantList.add(moviesWant);
             }
             while (cursor.moveToNext());
@@ -104,12 +107,12 @@ public class MovieActionsWant {
 
         SQLiteDatabase db = movieDBHelper.getReadableDatabase();
         String searchQuery = "SELECT " +
-                MoviesWant.KEY_ID + "," +
-                MoviesWant.KEY_state + "," +
-                MoviesWant.KEY_title +
-                " FROM " + MoviesWant.TABLE +
-                " WHERE " + MoviesWant.KEY_title + " = ?" +
-                " AND " + MoviesWant.KEY_state + " = ?";
+                KEY_ID + "," +
+                KEY_state + "," +
+                KEY_title +
+                " FROM " + TABLE +
+                " WHERE " + KEY_title + " = ?" +
+                " AND " + KEY_state + " = ?";
 
 
         Cursor cursor = db.rawQuery(searchQuery, new String[] {search, "w"});
@@ -117,8 +120,8 @@ public class MovieActionsWant {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> moviesWant = new HashMap<String, String>();
-                moviesWant.put("id", cursor.getString(cursor.getColumnIndex(MoviesWant.KEY_ID)));
-                moviesWant.put("title", cursor.getString(cursor.getColumnIndex(MoviesWant.KEY_title)));
+                moviesWant.put("id", cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                moviesWant.put("title", cursor.getString(cursor.getColumnIndex(KEY_title)));
                 moviesWantList.add(moviesWant);
             }
             while (cursor.moveToNext());

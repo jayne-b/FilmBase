@@ -8,7 +8,7 @@ public class MovieDBHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
-    private static  final String DATABASE_NAME = "movies.db";
+    private static  final String DATABASE_NAME = "movies_db";
 
 
     public MovieDBHelper(Context context) {
@@ -26,9 +26,8 @@ public class MovieDBHelper extends SQLiteOpenHelper {
                 + MoviesSeen.KEY_comments + " TEXT, "
                 + MoviesSeen.KEY_ratings + " INTEGER )";
 
-        db.execSQL(CREATE_TABLE_MOVIE_SEEN);
 
-        String CREATE_TABLE_MOVIE_WANT = "CREATE TABLE IF NOT EXISTS " + MoviesWant.TABLE + "("
+        String CREATE_TABLE_MOVIE_WANT = " CREATE TABLE IF NOT EXISTS " + MoviesWant.TABLE + "("
                 + MoviesWant.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                 + MoviesWant.KEY_state + " TEXT, "
                 + MoviesWant.KEY_title + " TEXT NOT NULL, "
@@ -38,6 +37,7 @@ public class MovieDBHelper extends SQLiteOpenHelper {
                 + MoviesWant.KEY_month + " TEXT, "
                 + MoviesWant.KEY_year + " INTEGER )";
 
+        db.execSQL(CREATE_TABLE_MOVIE_SEEN);
         db.execSQL(CREATE_TABLE_MOVIE_WANT);
 
     }

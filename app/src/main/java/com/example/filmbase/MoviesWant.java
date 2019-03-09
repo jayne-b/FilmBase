@@ -2,7 +2,7 @@ package com.example.filmbase;
 
 public class MoviesWant {
 
-    public static final String TABLE = "Movie";
+    public static final String TABLE = "MovieW";
 
     public static final String KEY_ID = "id";
     public static final String KEY_state = "state";
@@ -89,9 +89,5 @@ public class MoviesWant {
         this.year = year;
     }
 
-    @Override
-    public String toString() {
-        return getTitle();
-    }
 }
 

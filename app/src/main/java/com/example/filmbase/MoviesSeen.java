@@ -2,7 +2,7 @@ package com.example.filmbase;
 
 public class MoviesSeen {
 
-    public static final String TABLE = "Movie";
+    public static final String TABLE = "MovieS";
 
     public static final String KEY_ID = "id";
     public static final String KEY_state = "state";
