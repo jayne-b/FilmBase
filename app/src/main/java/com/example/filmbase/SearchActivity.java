@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -19,6 +20,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private ArrayList<HashMap<String, String>> movieListWant;
+    private ArrayList<HashMap<String, String>> movieListSeen;
+    private ArrayList<HashMap<String, String>> movieList;
 
     //String movie = findViewById(R.id.etTitleSearch).toString();
     public static Context context;
@@ -56,19 +61,23 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private void search() {
         EditText editText = findViewById(R.id.etTitleSearch);
         RadioGroup output = findViewById(R.id.rgSearch);
-        ListView listView = findViewById(R.id.lvMoviesSearch);
+        final ListView listView = findViewById(R.id.lvMoviesSearch);
         Spinner spinner = findViewById(R.id.spGenreSearch);
-        String input = editText.getText().toString().trim();
+        final String input = editText.getText().toString().trim();
         String genre = spinner.getSelectedItem().toString();
+        ListView lvMoviesSearch = findViewById(R.id.lvMoviesSearch);
         SharedPreferences search = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = search.edit();
+        final SharedPreferences.Editor editor = search.edit();
         editor.putString("input", input);
         //editor.putString("genre", genre);
         editor.commit();
+        //lvMoviesSearch.setOnItemClickListener(this);
+
 
         if(output.getCheckedRadioButtonId() == findViewById(R.id.rbSeenSearch).getId()) {
             MovieActionsSeen actions = new MovieActionsSeen(getApplicationContext());
-            ArrayList<HashMap<String, String>> movieList = actions.getMovieSeenSearch();
+            movieListSeen = actions.getMovieSeenSearch();
+            movieList = movieListSeen;
             ListAdapter arrayAdapter = new SimpleAdapter(this,
                     movieList,
                     android.R.layout.simple_list_item_1,
@@ -79,7 +88,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         } else if(output.getCheckedRadioButtonId() == findViewById(R.id.rbWantSearch).getId()) {
             MovieActionsWant actions = new MovieActionsWant(getApplicationContext());
-            ArrayList<HashMap<String, String>> movieList = actions.getMovieWantSearch();
+            movieListWant = actions.getMovieWantSearch();
+            movieList = movieListWant;
             ListAdapter arrayAdapter = new SimpleAdapter( this,
                     movieList,
                     android.R.layout.simple_list_item_1,
@@ -91,9 +101,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         } else if(output.getCheckedRadioButtonId() == findViewById(R.id.rbAllSearch).getId()) {
             MovieActionsWant actions = new MovieActionsWant(getApplicationContext());
             MovieActionsSeen actionsSeen = new MovieActionsSeen(getApplicationContext());
-            ArrayList<HashMap<String, String>> movieListWant = actions.getMovieWantSearch();
-            ArrayList<HashMap<String, String>> movieListSeen = actionsSeen.getMovieSeenSearch();
-            ArrayList<HashMap<String, String>> movieList = new ArrayList<>();
+            movieListWant = actions.getMovieWantSearch();
+            movieListSeen = actionsSeen.getMovieSeenSearch();
+            //ArrayList<HashMap<String, String>> movieList = new ArrayList<>();
             movieList.addAll(movieListWant);
             movieList.addAll(movieListSeen);
             ListAdapter arrayAdapter = new SimpleAdapter( this,
@@ -105,5 +115,47 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             ((SimpleAdapter) arrayAdapter).notifyDataSetChanged();
 
         }
-    }
-}
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+      /*  @Override
+        public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+            //Cursor c = (Cursor)listView.getItemAtPosition(position);
+            //String state = c.getString(c.getColumnIndex(MoviesSeen.KEY_state));
+        });
+    } */
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            HashMap<String, String> result = movieList.get(position);
+            String Id = result.get("id");
+            String state = result.get("state");
+            String title = result.get("title");
+            String genre = result.get("genre");
+            String comments = result.get("comments");
+            if(state.equals("s")) {
+                String ratings = result.get("ratings");
+                Intent intent = new Intent(getApplicationContext(), SeenInfoActivity.class);
+                intent.putExtra("movieIndex", Id);
+                intent.putExtra("title", title);
+                intent.putExtra("genre", genre);
+                intent.putExtra("comments", comments);
+                intent.putExtra("ratings", ratings);
+                startActivity(intent);
+            } else if(state.equals("w")) {
+                String day = result.get("day");
+                String month = result.get("month");
+                String year = result.get("year");
+                Intent intent = new Intent(getApplicationContext(), WantInfoActivity.class);
+                intent.putExtra("movieIndex", Id);
+                intent.putExtra("title", title);
+                intent.putExtra("genre", genre);
+                intent.putExtra("comments", comments);
+                intent.putExtra("day", day);
+                intent.putExtra("month", month);
+                intent.putExtra("year", year);
+                startActivity(intent);
+            }
+
+        }
+    });
+}}

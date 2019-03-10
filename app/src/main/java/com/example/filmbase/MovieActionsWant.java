@@ -122,6 +122,7 @@ public class MovieActionsWant {
                 HashMap<String, String> moviesWant = new HashMap<String, String>();
                 moviesWant.put("id", cursor.getString(cursor.getColumnIndex(KEY_ID)));
                 moviesWant.put("title", cursor.getString(cursor.getColumnIndex(KEY_title)));
+                moviesWant.put("state", cursor.getString(cursor.getColumnIndex(KEY_state)));
                 moviesWantList.add(moviesWant);
             }
             while (cursor.moveToNext());

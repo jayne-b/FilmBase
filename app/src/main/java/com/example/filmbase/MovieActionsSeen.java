@@ -67,7 +67,7 @@ public class MovieActionsSeen {
     }
 
 
-    public ArrayList<HashMap<String, String>> getMovieList() {
+    public ArrayList<HashMap<String, String>> getMovie(int id) {
         //MoviesSeen moviesSeenList = new MoviesSeen();
         ArrayList<HashMap<String, String>> moviesSeenList = new ArrayList<>();
 
@@ -76,19 +76,22 @@ public class MovieActionsSeen {
                 MoviesSeen.KEY_ID + "," +
                 MoviesSeen.KEY_state + "," +
                 MoviesSeen.KEY_title + "," +
-                MoviesSeen.KEY_state + "," +
                 MoviesSeen.KEY_genre + "," +
                 MoviesSeen.KEY_comments + "," +
                 MoviesSeen.KEY_ratings +
-                " FROM " + MoviesSeen.TABLE;
+                " FROM " + MoviesSeen.TABLE +
+                " WHERE " + MoviesSeen.KEY_ID + " =?";
 
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(id)});
 
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> moviesSeen = new HashMap<String, String>();
                 moviesSeen.put("id", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_ID)));
                 moviesSeen.put("title", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_title)));
+                moviesSeen.put("genre", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_genre)));
+                moviesSeen.put("comments", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_comments)));
+                moviesSeen.put("ratings", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_ratings)));
                 moviesSeenList.add(moviesSeen);
             }
             while (cursor.moveToNext());
@@ -111,11 +114,10 @@ public class MovieActionsSeen {
         String searchQuery = "SELECT " +
                 MoviesSeen.KEY_ID + "," +
                 MoviesSeen.KEY_state + "," +
-                MoviesSeen.KEY_title +
-                //"," +                 MoviesSeen.KEY_genre +
-                //"," +
-                //MoviesSeen.KEY_comments + "," +
-                //MoviesSeen.KEY_ratings +
+                MoviesSeen.KEY_title + "," +
+                MoviesSeen.KEY_genre + "," +
+                MoviesSeen.KEY_comments + "," +
+                MoviesSeen.KEY_ratings +
                 " FROM " + MoviesSeen.TABLE +
                 " WHERE " + MoviesSeen.KEY_title + " = ?" +
                 " AND " + MoviesSeen.KEY_state + " = ?";
@@ -129,6 +131,10 @@ public class MovieActionsSeen {
                 HashMap<String, String> moviesSeen = new HashMap<String, String>();
                 moviesSeen.put("id", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_ID)));
                 moviesSeen.put("title", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_title)));
+                moviesSeen.put("state", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_state)));
+                moviesSeen.put("genre", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_genre)));
+                moviesSeen.put("comments", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_comments)));
+                moviesSeen.put("ratings", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_ratings)));
                 moviesSeenList.add(moviesSeen);
             }
             while (cursor.moveToNext());

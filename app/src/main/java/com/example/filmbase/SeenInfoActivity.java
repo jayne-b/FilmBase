@@ -1,12 +1,26 @@
 package com.example.filmbase;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import static java.lang.Integer.valueOf;
 
 public class SeenInfoActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public Context context;
+    private String id;
+    private String title;
+    private String genre;
+    private String comments;
+    private String ratings;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,25 +30,55 @@ public class SeenInfoActivity extends AppCompatActivity implements View.OnClickL
         Button btnEditSeenInfo = findViewById(R.id.btnEditSeenInfo);
         Button btnDeleteSeenInfo = findViewById(R.id.btnDeleteSeenInfo);
         Button btnBackSeenInfo = findViewById(R.id.btnBackSeenInfo);
+        TextView tvTitle = findViewById(R.id.tvTitleSeenInfo);
+        TextView tvGenre = findViewById(R.id.tvGenreSeenInfo);
+        TextView tvComments = findViewById(R.id.tvCommentSeenInfo);
+        RatingBar tvRatings = findViewById(R.id.rbRatingSeen);
         btnEditSeenInfo.setOnClickListener(this);
         btnDeleteSeenInfo.setOnClickListener(this);
         btnBackSeenInfo.setOnClickListener(this);
+
+        Intent intent = getIntent();
+
+        id = intent.getStringExtra("id");
+        title = intent.getStringExtra("title");
+        genre = intent.getStringExtra("genre");
+        comments = intent.getStringExtra("comments");
+        ratings = intent.getStringExtra("ratings");
+
+        tvTitle.setText(title);
+        tvGenre.setText(genre);
+        tvComments.setText(comments);
+        tvRatings.setNumStars(valueOf(ratings));
+
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnEditSeenInfo:
                 Intent intentSeen = new Intent(this, SeenActivity.class);
+                intentSeen.putExtra("id", id);
+                intentSeen.putExtra("title", title);
+                intentSeen.putExtra("genre", genre);
+                intentSeen.putExtra("comments", comments);
+                intentSeen.putExtra("ratings", ratings);
+                intentSeen.putExtra("edit", "edit");
                 startActivity(intentSeen);
                 break;
             case R.id.btnDeleteSeenInfo:
+                MovieActionsSeen actions = new MovieActionsSeen(getApplicationContext());
+                actions.delete(Integer.parseInt(id));
+                Toast.makeText(this, "Movie Deleted", Toast.LENGTH_LONG).show();
+                Intent intentMain = new Intent(this, MainActivity.class);
+                startActivity(intentMain);
 
                 break;
             case R.id.btnBackSeenInfo:
-                Intent intentMain = new Intent(this, MainActivity.class);
+                intentMain = new Intent(this, MainActivity.class);
                 startActivity(intentMain);
                 break;
         }
 
     }
+
 }
