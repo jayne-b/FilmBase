@@ -65,14 +65,15 @@ public class SeenInfoActivity extends AppCompatActivity implements View.OnClickL
                 intentSeen.putExtra("edit", "edit");
                 startActivity(intentSeen);
                 break;
-            case R.id.btnDeleteSeenInfo:
+
+             case R.id.btnDeleteSeenInfo:
                 MovieActionsSeen actions = new MovieActionsSeen(getApplicationContext());
                 actions.delete(Integer.parseInt(String.valueOf(id)));
                 Toast.makeText(this, "Movie Deleted", Toast.LENGTH_LONG).show();
                 Intent intentMain = new Intent(this, MainActivity.class);
                 startActivity(intentMain);
-
                 break;
+
             case R.id.btnBackSeenInfo:
                 intentMain = new Intent(this, MainActivity.class);
                 startActivity(intentMain);
