@@ -46,7 +46,7 @@ public class SeenActivity extends AppCompatActivity implements View.OnClickListe
             etTitleSeen.setText(title);
             etCommentsSeen.setText(comments);
             spGenreSeen.setSelection(adapter.getPosition(genre));
-            rbRatingsSeen.setNumStars(Integer.valueOf(ratings));
+            rbRatingsSeen.setRating(Float.parseFloat((ratings)));
 
         }
 

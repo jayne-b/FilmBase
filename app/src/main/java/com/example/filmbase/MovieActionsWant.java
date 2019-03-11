@@ -28,6 +28,7 @@ public class MovieActionsWant {
 
         SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        //values.put(MoviesSeen.KEY_ID, moviesWant.getId());
         values.put(MoviesWant.KEY_state, moviesWant.getState());
         values.put(MoviesWant.KEY_title, moviesWant.getTitle());
         values.put(MoviesWant.KEY_genre, moviesWant.getGenre());
@@ -54,7 +55,7 @@ public class MovieActionsWant {
         SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(KEY_ID, movies.getId());
+        //values.put(KEY_ID, movies.getId());
         values.put(KEY_state, movies.getState());
         values.put(KEY_title, movies.getTitle());
         values.put(KEY_genre, movies.getGenre());
@@ -107,12 +108,17 @@ public class MovieActionsWant {
 
         SQLiteDatabase db = movieDBHelper.getReadableDatabase();
         String searchQuery = "SELECT " +
-                KEY_ID + "," +
-                KEY_state + "," +
-                KEY_title +
-                " FROM " + TABLE +
-                " WHERE " + KEY_title + " = ?" +
-                " AND " + KEY_state + " = ?";
+                MoviesWant.KEY_ID + "," +
+                MoviesWant.KEY_state + "," +
+                MoviesWant.KEY_title + "," +
+                MoviesWant.KEY_genre + "," +
+                MoviesWant.KEY_comments + "," +
+                MoviesWant.KEY_day + "," +
+                MoviesWant.KEY_month + "," +
+                MoviesWant.KEY_year +
+                " FROM " + MoviesWant.TABLE +
+                " WHERE " + MoviesWant.KEY_title + " = ?" +
+                " AND " + MoviesWant.KEY_state + " = ?";
 
 
         Cursor cursor = db.rawQuery(searchQuery, new String[] {search, "w"});
@@ -120,9 +126,14 @@ public class MovieActionsWant {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> moviesWant = new HashMap<String, String>();
-                moviesWant.put("id", cursor.getString(cursor.getColumnIndex(KEY_ID)));
-                moviesWant.put("title", cursor.getString(cursor.getColumnIndex(KEY_title)));
-                moviesWant.put("state", cursor.getString(cursor.getColumnIndex(KEY_state)));
+                moviesWant.put("id", String.valueOf(cursor.getInt(cursor.getColumnIndex(MoviesWant.KEY_ID))));
+                moviesWant.put("title", cursor.getString(cursor.getColumnIndex(MoviesWant.KEY_title)));
+                moviesWant.put("state", cursor.getString(cursor.getColumnIndex(MoviesWant.KEY_state)));
+                moviesWant.put("genre", cursor.getString(cursor.getColumnIndex(MoviesWant.KEY_genre)));
+                moviesWant.put("comments", cursor.getString(cursor.getColumnIndex(MoviesWant.KEY_comments)));
+                moviesWant.put("day", String.valueOf(cursor.getInt(cursor.getColumnIndex(MoviesWant.KEY_day))));
+                moviesWant.put("month", cursor.getString(cursor.getColumnIndex(MoviesWant.KEY_month)));
+                moviesWant.put("year", String.valueOf(cursor.getInt(cursor.getColumnIndex(MoviesWant.KEY_year))));
                 moviesWantList.add(moviesWant);
             }
             while (cursor.moveToNext());

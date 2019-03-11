@@ -10,7 +10,6 @@ import android.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.example.filmbase.MoviesSeen.KEY_ID;
 import static com.example.filmbase.MoviesSeen.KEY_comments;
 import static com.example.filmbase.MoviesSeen.KEY_genre;
 import static com.example.filmbase.MoviesSeen.KEY_ratings;
@@ -31,6 +30,7 @@ public class MovieActionsSeen {
 
         SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        //values.put(MoviesSeen.KEY_ID, moviesSeen.getId());
         values.put(MoviesSeen.KEY_state, moviesSeen.getState());
         values.put(MoviesSeen.KEY_title, moviesSeen.getTitle());
         values.put(MoviesSeen.KEY_genre, moviesSeen.getGenre());
@@ -55,7 +55,7 @@ public class MovieActionsSeen {
         SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(KEY_ID, movies.getId());
+        //values.put(KEY_ID, movies.getId());
         values.put(KEY_state, movies.getState());
         values.put(KEY_title, movies.getTitle());
         values.put(KEY_genre, movies.getGenre());
@@ -87,11 +87,11 @@ public class MovieActionsSeen {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> moviesSeen = new HashMap<String, String>();
-                moviesSeen.put("id", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_ID)));
+                moviesSeen.put("id", String.valueOf(cursor.getInt(cursor.getColumnIndex(MoviesSeen.KEY_ID))));
                 moviesSeen.put("title", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_title)));
                 moviesSeen.put("genre", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_genre)));
                 moviesSeen.put("comments", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_comments)));
-                moviesSeen.put("ratings", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_ratings)));
+                moviesSeen.put("ratings", String.valueOf(cursor.getFloat(cursor.getColumnIndex(MoviesSeen.KEY_ratings))));
                 moviesSeenList.add(moviesSeen);
             }
             while (cursor.moveToNext());

@@ -16,7 +16,7 @@ public class MoviesSeen {
     public String title;
     public String genre;
     public String comments;
-    public int ratings;
+    public float ratings;
 
     public MoviesSeen() {            }
 
@@ -60,11 +60,11 @@ public class MoviesSeen {
         this.comments = comments;
     }
 
-    public int getRatings() {
+    public float getRatings() {
         return ratings;
     }
 
-    public void setRatings(int ratings) {
+    public void setRatings(float ratings) {
         this.ratings = ratings;
     }
 
