@@ -72,7 +72,7 @@ public class WantInfoActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(intentWant);
                 break;
             case R.id.btnDeleteWantInfo:
-                MovieActionsSeen actions = new MovieActionsSeen(getApplicationContext());
+                MovieActionsWant actions = new MovieActionsWant(getApplicationContext());
                 actions.delete(Integer.parseInt(id));
                 Toast.makeText(this, "Movie Deleted", Toast.LENGTH_LONG).show();
                 Intent intentMain = new Intent(this, MainActivity.class);

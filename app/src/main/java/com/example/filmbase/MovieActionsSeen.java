@@ -6,17 +6,15 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.example.filmbase.MoviesSeen.KEY_comments;
-import static com.example.filmbase.MoviesSeen.KEY_genre;
-import static com.example.filmbase.MoviesSeen.KEY_ratings;
-import static com.example.filmbase.MoviesSeen.KEY_state;
-import static com.example.filmbase.MoviesSeen.KEY_title;
+import static com.example.filmbase.MoviesSeen.TABLE;
 
 public class MovieActionsSeen {
+    private static final String TAG = "";
     //private MoviesSeen moviedb;
     private MovieDBHelper movieDBHelper;
 
@@ -37,7 +35,7 @@ public class MovieActionsSeen {
         values.put(MoviesSeen.KEY_comments, moviesSeen.getComments());
         values.put(MoviesSeen.KEY_ratings, moviesSeen.getRatings());
 
-        long id = db.insert(MoviesSeen.TABLE, null, values);
+        long id = db.insert(TABLE, null, values);
         db.close();
         return (int) id;
     }
@@ -46,7 +44,8 @@ public class MovieActionsSeen {
     public void delete(int id) {
 
         SQLiteDatabase db = movieDBHelper.getWritableDatabase();
-        db.delete(MoviesSeen.TABLE, MoviesSeen.KEY_ID + "= ?", new String[] { String.valueOf(id)});
+        Log.d(TAG, "delete: id = " + id);
+        db.delete(MoviesSeen.TABLE, MoviesSeen.KEY_ID + "= ? ", new String[] {String.valueOf((id)) });
         db.close();
     }
 
@@ -55,12 +54,12 @@ public class MovieActionsSeen {
         SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        //values.put(KEY_ID, movies.getId());
-        values.put(KEY_state, movies.getState());
-        values.put(KEY_title, movies.getTitle());
-        values.put(KEY_genre, movies.getGenre());
-        values.put(KEY_comments, movies.getComments());
-        values.put(KEY_ratings, movies.getRatings());
+        values.put(MoviesSeen.KEY_ID, movies.getId());
+        values.put(MoviesSeen.KEY_state, movies.getState());
+        values.put(MoviesSeen.KEY_title, movies.getTitle());
+        values.put(MoviesSeen.KEY_genre, movies.getGenre());
+        values.put(MoviesSeen.KEY_comments, movies.getComments());
+        values.put(MoviesSeen.KEY_ratings, movies.getRatings());
 
         db.update(MoviesSeen.TABLE, values, MoviesSeen.KEY_ID + "= ?",new String[] { String.valueOf(movies.id)});
         db.close();
@@ -79,7 +78,7 @@ public class MovieActionsSeen {
                 MoviesSeen.KEY_genre + "," +
                 MoviesSeen.KEY_comments + "," +
                 MoviesSeen.KEY_ratings +
-                " FROM " + MoviesSeen.TABLE +
+                " FROM " + TABLE +
                 " WHERE " + MoviesSeen.KEY_ID + " =?";
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(id)});
@@ -118,7 +117,7 @@ public class MovieActionsSeen {
                 MoviesSeen.KEY_genre + "," +
                 MoviesSeen.KEY_comments + "," +
                 MoviesSeen.KEY_ratings +
-                " FROM " + MoviesSeen.TABLE +
+                " FROM " + TABLE +
                 " WHERE " + MoviesSeen.KEY_title + " = ?" +
                 " AND " + MoviesSeen.KEY_state + " = ?";
                 //+                 " AND " + MoviesSeen.KEY_genre + " = ?";
