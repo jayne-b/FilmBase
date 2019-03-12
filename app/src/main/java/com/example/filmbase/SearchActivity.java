@@ -14,7 +14,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -131,7 +130,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             String genre = result.get("genre");
             String comments = result.get("comments");
             if(state.equals("s")) {
-                float ratings = Float.parseFloat(result.get("ratings"));
+                String ratings = result.get("ratings");
                 Intent intent = new Intent(getApplicationContext(), SeenInfoActivity.class);
                 intent.putExtra("id", Id);
                 intent.putExtra("title", title);

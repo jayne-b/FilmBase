@@ -72,7 +72,7 @@
         app:layout_constraintVertical_bias="0.100000024" />
 
     <TextView
-        android:id="@+id/tvCommentSeenInfo"
+        android:id="@+id/tvCommentRandom"
         android:layout_width="0dp"
         android:layout_height="184dp"
         android:layout_marginStart="32dp"

@@ -20,7 +20,7 @@ public class SeenInfoActivity extends AppCompatActivity implements View.OnClickL
     private String title;
     private String genre;
     private String comments;
-    private Float ratings;
+    private String ratings;
 
 
     @Override
@@ -46,12 +46,14 @@ public class SeenInfoActivity extends AppCompatActivity implements View.OnClickL
         title = intent.getStringExtra("title");
         genre = intent.getStringExtra("genre");
         comments = intent.getStringExtra("comments");
-        ratings = intent.getFloatExtra("ratings", 0);
+        ratings = intent.getStringExtra("ratings");
+
+        Log.d(TAG, "onCreate: stars = " + ratings);
 
         tvTitle.setText(title);
         tvGenre.setText(genre);
         tvComments.setText(comments);
-        tvRatings.setRating(ratings);
+        tvRatings.setRating(Float.parseFloat(ratings));
 
     }
 

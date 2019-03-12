@@ -65,6 +65,15 @@ public class MovieActionsSeen {
         db.close();
     }
 
+    public int getProfilesCount() {
+        String countQuery = "SELECT  * FROM " + MoviesSeen.TABLE;
+        SQLiteDatabase db = movieDBHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+
 
     public ArrayList<HashMap<String, String>> getMovieSeen(int id) {
         //MoviesSeen moviesSeenList = new MoviesSeen();
@@ -92,6 +101,13 @@ public class MovieActionsSeen {
                 moviesSeen.put("comments", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_comments)));
                 moviesSeen.put("ratings", String.valueOf(cursor.getFloat(cursor.getColumnIndex(MoviesSeen.KEY_ratings))));
                 moviesSeenList.add(moviesSeen);
+
+               /*Intent intent = new Intent(this, RandomActivity.class);
+               intent.putExtra("title", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_title)));
+               intent.putExtra("genre", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_genre)));
+               intent.putExtra("comments", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_comments)));
+               intent.putExtra("ratings", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_ratings))); */
+
             }
             while (cursor.moveToNext());
         }
@@ -101,7 +117,7 @@ public class MovieActionsSeen {
         return moviesSeenList;
     }
 
-    
+
 
     public ArrayList<HashMap<String, String>> getMovieSeenSearch() {
         //MoviesSeen moviesSeenList = new MoviesSeen();
