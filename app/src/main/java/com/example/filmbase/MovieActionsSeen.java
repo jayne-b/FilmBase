@@ -101,6 +101,8 @@ public class MovieActionsSeen {
         return moviesSeenList;
     }
 
+    
+
     public ArrayList<HashMap<String, String>> getMovieSeenSearch() {
         //MoviesSeen moviesSeenList = new MoviesSeen();
         ArrayList<HashMap<String, String>> moviesSeenList = new ArrayList<HashMap<String, String>>();
