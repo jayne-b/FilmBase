@@ -66,18 +66,18 @@ public class MovieActionsSeen {
     }
 
     public int getProfilesCount() {
-        String countQuery = "SELECT  * FROM " + MoviesSeen.TABLE;
+        String countQuery = "SELECT  * FROM " + MoviesSeen.TABLE + " WHERE " + MoviesSeen.KEY_state + " =?";
         SQLiteDatabase db = movieDBHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
+        Cursor cursor = db.rawQuery(countQuery, new String[] {"s"});
         int count = cursor.getCount();
         cursor.close();
         return count;
     }
 
 
-    public ArrayList<HashMap<String, String>> getMovieSeen(int id) {
+    public MoviesSeen getMovieSeen(int id) {
         //MoviesSeen moviesSeenList = new MoviesSeen();
-        ArrayList<HashMap<String, String>> moviesSeenList = new ArrayList<>();
+        MoviesSeen moviesSeenList = new MoviesSeen();
 
         SQLiteDatabase db = movieDBHelper.getReadableDatabase();
         String selectQuery = "SELECT " +
@@ -94,19 +94,10 @@ public class MovieActionsSeen {
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> moviesSeen = new HashMap<String, String>();
-                moviesSeen.put("id", String.valueOf(cursor.getInt(cursor.getColumnIndex(MoviesSeen.KEY_ID))));
-                moviesSeen.put("title", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_title)));
-                moviesSeen.put("genre", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_genre)));
-                moviesSeen.put("comments", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_comments)));
-                moviesSeen.put("ratings", String.valueOf(cursor.getFloat(cursor.getColumnIndex(MoviesSeen.KEY_ratings))));
-                moviesSeenList.add(moviesSeen);
-
-               /*Intent intent = new Intent(this, RandomActivity.class);
-               intent.putExtra("title", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_title)));
-               intent.putExtra("genre", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_genre)));
-               intent.putExtra("comments", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_comments)));
-               intent.putExtra("ratings", cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_ratings))); */
+                moviesSeenList.setTitle(cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_title)));
+                moviesSeenList.setGenre(cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_genre)));
+                moviesSeenList.setComments(cursor.getString(cursor.getColumnIndex(MoviesSeen.KEY_comments)));
+                moviesSeenList.setRatings(cursor.getFloat(cursor.getColumnIndex(MoviesSeen.KEY_ratings)));
 
             }
             while (cursor.moveToNext());
