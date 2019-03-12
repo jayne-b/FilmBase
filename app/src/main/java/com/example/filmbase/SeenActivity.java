@@ -77,9 +77,8 @@ public class SeenActivity extends AppCompatActivity implements View.OnClickListe
                     moviesNew.ratings = rbRatingSeen.getNumStars();
                     actionsNew.addSeen(moviesNew);
                     Toast.makeText(this, "Movie Added", Toast.LENGTH_LONG).show();
-                    Intent intentMain = new Intent(this, MainActivity.class);
                     finish();
-                    startActivity(intentMain);
+                    startActivity(getIntent());
                 } else {
                     MovieActionsSeen actions = new MovieActionsSeen(getApplicationContext());
                     MoviesSeen movies = new MoviesSeen();
@@ -89,10 +88,12 @@ public class SeenActivity extends AppCompatActivity implements View.OnClickListe
                     movies.genre = spGenreSeen.getSelectedItem().toString();
                     movies.comments = etCommentsSeen.getText().toString();
                     movies.ratings = rbRatingSeen.getNumStars();
+                    Intent intentMain = new Intent(this, MainActivity.class);
+
                     if (extra.equals("edit")) {
                         actions.updateSeen(movies);
                         Toast.makeText(this, "Movie Edited", Toast.LENGTH_LONG).show();
-                        Intent intentMain = new Intent(this, MainActivity.class);
+                        //Intent intentMain = new Intent(this, MainActivity.class);
                         startActivity(intentMain);
                     } else if (extra.equals("want")) {
                         int id = actions.addSeen(movies);
@@ -100,9 +101,10 @@ public class SeenActivity extends AppCompatActivity implements View.OnClickListe
                         MovieActionsWant actionsWant = new MovieActionsWant(getApplicationContext());
                         actionsWant.delete(Integer.parseInt(wantId));
                         Toast.makeText(this, "Movie Added", Toast.LENGTH_LONG).show();
+                        //Intent intentMenu = new Intent(this, MainActivity.class);
                         finish();
-                        startActivity(getIntent());
-                    } else if (extra.isEmpty()) {
+                        startActivity(intentMain);
+                    } /*else if (extra.isEmpty()) {
                         MovieActionsSeen actionsNew = new MovieActionsSeen(getApplicationContext());
                         MoviesSeen moviesNew = new MoviesSeen();
                         //movies.id = Integer.parseInt(id);
@@ -115,7 +117,7 @@ public class SeenActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(this, "Movie Added", Toast.LENGTH_LONG).show();
                         finish();
                         startActivity(getIntent());
-                    }
+                    }*/
                 }
 
                 break;
