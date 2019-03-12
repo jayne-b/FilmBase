@@ -62,9 +62,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         EditText editText = findViewById(R.id.etTitleSearch);
         RadioGroup output = findViewById(R.id.rgSearch);
         final ListView listView = findViewById(R.id.lvMoviesSearch);
-        Spinner spinner = findViewById(R.id.spGenreSearch);
         final String input = editText.getText().toString().trim();
-        String genre = spinner.getSelectedItem().toString();
         ListView lvMoviesSearch = findViewById(R.id.lvMoviesSearch);
         SharedPreferences search = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final SharedPreferences.Editor editor = search.edit();
