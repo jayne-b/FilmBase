@@ -4,22 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static java.lang.Integer.valueOf;
-
 public class SeenInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "" ;
     public Context context;
     private String id;
+    private String state;
     private String title;
     private String genre;
     private String comments;
-    private String ratings;
+    private Float ratings;
 
 
     @Override
@@ -41,15 +42,16 @@ public class SeenInfoActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = getIntent();
 
         id = intent.getStringExtra("id");
+        state = intent.getStringExtra("state");
         title = intent.getStringExtra("title");
         genre = intent.getStringExtra("genre");
         comments = intent.getStringExtra("comments");
-        ratings = intent.getStringExtra("ratings");
+        ratings = intent.getFloatExtra("ratings", 0);
 
         tvTitle.setText(title);
         tvGenre.setText(genre);
         tvComments.setText(comments);
-        tvRatings.setNumStars(valueOf(ratings));
+        tvRatings.setRating(ratings);
 
     }
 
@@ -68,6 +70,7 @@ public class SeenInfoActivity extends AppCompatActivity implements View.OnClickL
 
              case R.id.btnDeleteSeenInfo:
                 MovieActionsSeen actions = new MovieActionsSeen(getApplicationContext());
+                Log.d(TAG, "onClick: delete id = " + id);
                 actions.delete(Integer.parseInt(id));
                 Toast.makeText(this, "Movie Deleted", Toast.LENGTH_LONG).show();
                 Intent intentMain = new Intent(this, MainActivity.class);

@@ -133,9 +133,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             String genre = result.get("genre");
             String comments = result.get("comments");
             if(state.equals("s")) {
-                String ratings = result.get("ratings");
+                float ratings = Float.parseFloat(result.get("ratings"));
                 Intent intent = new Intent(getApplicationContext(), SeenInfoActivity.class);
-                intent.putExtra("movieIndex", Id);
+                intent.putExtra("id", Id);
                 intent.putExtra("title", title);
                 intent.putExtra("genre", genre);
                 intent.putExtra("comments", comments);
@@ -146,7 +146,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 String month = result.get("month");
                 String year = result.get("year");
                 Intent intent = new Intent(getApplicationContext(), WantInfoActivity.class);
-                intent.putExtra("movieIndex", Id);
+                intent.putExtra("id", Id);
                 intent.putExtra("title", title);
                 intent.putExtra("genre", genre);
                 intent.putExtra("comments", comments);
