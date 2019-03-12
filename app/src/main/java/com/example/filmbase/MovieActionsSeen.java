@@ -129,7 +129,6 @@ public class MovieActionsSeen {
                 " FROM " + TABLE +
                 " WHERE " + MoviesSeen.KEY_title + " = ?" +
                 " AND " + MoviesSeen.KEY_state + " = ?";
-                //+                 " AND " + MoviesSeen.KEY_genre + " = ?";
 
 
         Cursor cursor = db.rawQuery(searchQuery, new String[] {search, "s"});

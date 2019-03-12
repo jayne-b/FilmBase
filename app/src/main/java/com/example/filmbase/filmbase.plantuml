@@ -1,0 +1,256 @@
+@startuml
+
+title __FILMBASE's Class Diagram__\n
+
+  package com.example.filmbase {
+    class MainActivity {
+        # onCreate()
+        + onClick()
+    }
+  }
+  
+
+  package com.example.filmbase {
+    class MovieActionsSeen {
+        {static} - TAG : String
+        + MovieActionsSeen()
+        + addSeen()
+        + delete()
+        + updateSeen()
+        + getProfilesCount()
+        + getMovieSeen()
+        + getMovieSeenSearch()
+    }
+  }
+  
+
+  package com.example.filmbase {
+    class MovieActionsWant {
+        {static} - TAG : String
+        + MovieActionsWant()
+        + addWant()
+        + delete()
+        + updateWant()
+        + getMovieWant()
+        + getMovieWantSearch()
+    }
+  }
+  
+
+  package com.example.filmbase {
+    class MovieDBHelper {
+        {static} - DATABASE_VERSION : int
+        {static} - DATABASE_NAME : String
+        + MovieDBHelper()
+        + onCreate()
+        + onUpgrade()
+    }
+  }
+  
+
+  package com.example.filmbase {
+    class MoviesSeen {
+        {static} + TABLE : String
+        {static} + KEY_ID : String
+        {static} + KEY_state : String
+        {static} + KEY_title : String
+        {static} + KEY_genre : String
+        {static} + KEY_comments : String
+        {static} + KEY_ratings : String
+        + id : int
+        + state : String
+        + title : String
+        + genre : String
+        + comments : String
+        + ratings : float
+        + MoviesSeen()
+        + getId()
+        + setId()
+        + getTitle()
+        + setTitle()
+        + getState()
+        + setState()
+        + getGenre()
+        + setGenre()
+        + getComments()
+        + setComments()
+        + getRatings()
+        + setRatings()
+    }
+  }
+  
+
+  package com.example.filmbase {
+    class MoviesWant {
+        {static} + TABLE : String
+        {static} + KEY_ID : String
+        {static} + KEY_state : String
+        {static} + KEY_title : String
+        {static} + KEY_genre : String
+        {static} + KEY_comments : String
+        {static} + KEY_day : String
+        {static} + KEY_month : String
+        {static} + KEY_year : String
+        + id : int
+        + state : String
+        + title : String
+        + genre : String
+        + comments : String
+        + day : int
+        + month : String
+        + year : int
+        + MoviesWant()
+        + getId()
+        + setId()
+        + getTitle()
+        + setTitle()
+        + getState()
+        + setState()
+        + getGenre()
+        + setGenre()
+        + getComments()
+        + setComments()
+        + getDay()
+        + setDay()
+        + getMonth()
+        + setMonth()
+        + getYear()
+        + setYear()
+    }
+  }
+  
+
+  package com.example.filmbase {
+    class RandomActivity {
+        {static} - TAG : String
+        - title : String
+        - genre : String
+        - comments : String
+        - ratings : float
+        # onCreate()
+        + Randomizer()
+        + onClick()
+    }
+  }
+  
+
+  package com.example.filmbase {
+    class SearchActivity {
+        - movieListWant : ArrayList<HashMap<String, String>>
+        - movieListSeen : ArrayList<HashMap<String, String>>
+        - movieList : ArrayList<HashMap<String, String>>
+        {static} + context : Context
+        # onCreate()
+        {static} + getContextOfApplication()
+        + onClick()
+        - search()
+    }
+  }
+  
+
+  package com.example.filmbase {
+    class SeenActivity {
+        {static} - TAG : String
+        + extra : String
+        + id : String
+        + wantId : String
+        # onCreate()
+        + onClick()
+    }
+  }
+  
+
+  package com.example.filmbase {
+    class SeenInfoActivity {
+        {static} - TAG : String
+        + context : Context
+        - id : String
+        - state : String
+        - title : String
+        - genre : String
+        - comments : String
+        - ratings : String
+        # onCreate()
+        + onClick()
+    }
+  }
+  
+
+  package com.example.filmbase {
+    class WantActivity {
+        # onCreate()
+        + onClick()
+    }
+  }
+  
+
+  package com.example.filmbase {
+    class WantInfoActivity {
+        + context : Context
+        - id : String
+        - state : String
+        - title : String
+        - genre : String
+        - comments : String
+        - day : String
+        - month : String
+        - year : String
+        # onCreate()
+        + onClick()
+    }
+  }
+  
+
+  package com.example.filmbase {
+    class WantInfoEditActivity {
+        + context : Context
+        - id : String
+        - title : String
+        - genre : String
+        - comments : String
+        - day : String
+        - month : String
+        - year : String
+        # onCreate()
+        + onClick()
+    }
+  }
+  
+
+  MainActivity -up-|> OnClickListener
+  MainActivity -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+  MovieActionsSeen o-- MovieDBHelper : movieDBHelper
+  MovieActionsWant o-- MovieDBHelper : movieDBHelper
+  MovieDBHelper -up-|> SQLiteOpenHelper
+  RandomActivity -up-|> OnClickListener
+  RandomActivity -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+  SearchActivity -up-|> OnClickListener
+  SearchActivity -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+  SeenActivity -up-|> OnClickListener
+  SeenActivity -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+  SeenInfoActivity -up-|> OnClickListener
+  SeenInfoActivity -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+  WantActivity -up-|> OnClickListener
+  WantActivity -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+  WantInfoActivity -up-|> OnClickListener
+  WantInfoActivity -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+  WantInfoEditActivity -up-|> OnClickListener
+  WantInfoEditActivity -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
