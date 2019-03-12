@@ -95,7 +95,7 @@
     <Spinner
         android:id="@+id/spGenreWant"
         android:layout_width="0dp"
-        android:layout_height="19dp"
+        android:layout_height="25dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="8dp"
@@ -188,5 +188,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.65" />
+
+    <TextView
+        android:id="@+id/tvGenreboxWamt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="4dp"
+        android:text="Genre"
+        android:textColor="@color/colorText"
+        app:layout_constraintBottom_toTopOf="@+id/spGenreWant"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

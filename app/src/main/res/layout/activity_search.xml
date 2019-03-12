@@ -71,23 +71,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.100000024" />
 
-    <Spinner
-        android:id="@+id/spGenreSearch"
-        android:layout_width="0dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorAccent"
-        android:entries="@array/genre_array"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19999999" />
 
     <RadioGroup
         android:id="@+id/rgSearch"
@@ -105,15 +88,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.29000002">
+        app:layout_constraintVertical_bias="0.23000002">
 
         <RadioButton
             android:id="@+id/rbSeenSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/seen"
             android:buttonTint="@color/colorPrimary"
+            android:text="@string/seen"
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorText"
             android:textColorLink="@color/colorText" />
@@ -123,8 +106,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/want"
             android:buttonTint="@color/colorPrimary"
+            android:text="@string/want"
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorText"
             android:textColorLink="@color/colorText" />
@@ -134,8 +117,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/all"
             android:buttonTint="@color/colorPrimary"
+            android:text="@string/all"
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorText"
             android:textColorLink="@color/colorText" />
@@ -157,6 +140,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62" />
+        app:layout_constraintVertical_bias="0.59000003" />
 
 </android.support.constraint.ConstraintLayout>
