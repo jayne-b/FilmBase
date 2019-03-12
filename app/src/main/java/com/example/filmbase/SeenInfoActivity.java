@@ -64,7 +64,7 @@ public class SeenInfoActivity extends AppCompatActivity implements View.OnClickL
                 intentSeen.putExtra("genre", genre);
                 intentSeen.putExtra("comments", comments);
                 intentSeen.putExtra("ratings", ratings);
-                intentSeen.putExtra("edit", "edit");
+                intentSeen.putExtra("extra", "edit");
                 startActivity(intentSeen);
                 break;
 

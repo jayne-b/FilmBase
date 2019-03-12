@@ -79,6 +79,7 @@ public class WantInfoEditActivity extends AppCompatActivity implements View.OnCl
             case R.id.btnAddWantEdit:
                 MovieActionsWant actions = new MovieActionsWant(getApplicationContext());
                 MoviesWant movies = new MoviesWant();
+                movies.id = Integer.parseInt(id);
                 movies.state = "w";
                 movies.title = etTitleWantEdit.getText().toString();
                 movies.genre = spGenreWantEdit.getSelectedItem().toString();
@@ -93,7 +94,7 @@ public class WantInfoEditActivity extends AppCompatActivity implements View.OnCl
                     intentWant.putExtra("genre", genre);
                     intentWant.putExtra("comments", comments);
                     intentWant.putExtra("rating", "0");
-                    intentWant.putExtra("edit", "edit");
+                    intentWant.putExtra("extra", "want");
                     startActivity(intentWant);
 
                 } else {

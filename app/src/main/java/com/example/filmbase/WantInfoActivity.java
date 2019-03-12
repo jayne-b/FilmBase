@@ -53,7 +53,7 @@ public class WantInfoActivity extends AppCompatActivity implements View.OnClickL
         tvTitle.setText(title);
         tvGenre.setText(genre);
         tvComments.setText(comments);
-        tvDay.setText(id);
+        tvDay.setText(day);
         tvMonth.setText(month);
         tvYear.setText(year);
     }

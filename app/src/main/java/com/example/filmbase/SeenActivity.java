@@ -15,8 +15,9 @@ import android.widget.Toast;
 public class SeenActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "";
-    public String edit;
+    public String extra;
     public String id;
+    public String wantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,8 @@ public class SeenActivity extends AppCompatActivity implements View.OnClickListe
             String genre = intent.getStringExtra("genre");
             String comments = intent.getStringExtra("comments");
             String ratings = intent.getStringExtra("ratings");
-            edit = intent.getStringExtra("edit");
+            extra = intent.getStringExtra("extra");
+            wantId = id;
             etTitleSeen.setText(title);
             etCommentsSeen.setText(comments);
             spGenreSeen.setSelection(adapter.getPosition(genre));
@@ -64,6 +66,20 @@ public class SeenActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btnAddSeen:
 
+                if(extra.equals("main")) {
+                    MovieActionsSeen actionsNew = new MovieActionsSeen(getApplicationContext());
+                    MoviesSeen moviesNew = new MoviesSeen();
+                    //movies.id = Integer.parseInt(id);
+                    moviesNew.state = "s";
+                    moviesNew.title = etTitleSeen.getText().toString();
+                    moviesNew.genre = spGenreSeen.getSelectedItem().toString();
+                    moviesNew.comments = etCommentsSeen.getText().toString();
+                    moviesNew.ratings = rbRatingSeen.getNumStars();
+                    actionsNew.addSeen(moviesNew);
+                    Toast.makeText(this, "Movie Added", Toast.LENGTH_LONG).show();
+                    finish();
+                    startActivity(getIntent());
+                } else {
                     MovieActionsSeen actions = new MovieActionsSeen(getApplicationContext());
                     MoviesSeen movies = new MoviesSeen();
                     movies.id = Integer.parseInt(id);
@@ -72,17 +88,33 @@ public class SeenActivity extends AppCompatActivity implements View.OnClickListe
                     movies.genre = spGenreSeen.getSelectedItem().toString();
                     movies.comments = etCommentsSeen.getText().toString();
                     movies.ratings = rbRatingSeen.getNumStars();
-                if(edit != null) {
-                    actions.updateSeen(movies);
-                    Toast.makeText(this, "Movie Edited", Toast.LENGTH_LONG).show();
-                    Intent intentMain = new Intent(this, MainActivity.class);
-                    startActivity(intentMain);
-                } else {
-                    int id = actions.addSeen(movies);
-                    Log.d(TAG, "onClick: id = " + id);
-                    Toast.makeText(this, "Movie Added", Toast.LENGTH_LONG).show();
-                    finish();
-                    startActivity(getIntent());
+                    if (extra.equals("edit")) {
+                        actions.updateSeen(movies);
+                        Toast.makeText(this, "Movie Edited", Toast.LENGTH_LONG).show();
+                        Intent intentMain = new Intent(this, MainActivity.class);
+                        startActivity(intentMain);
+                    } else if (extra.equals("want")) {
+                        int id = actions.addSeen(movies);
+                        Log.d(TAG, "onClick: id = " + id);
+                        MovieActionsWant actionsWant = new MovieActionsWant(getApplicationContext());
+                        actionsWant.delete(Integer.parseInt(wantId));
+                        Toast.makeText(this, "Movie Added", Toast.LENGTH_LONG).show();
+                        finish();
+                        startActivity(getIntent());
+                    } else if (extra.isEmpty()) {
+                        MovieActionsSeen actionsNew = new MovieActionsSeen(getApplicationContext());
+                        MoviesSeen moviesNew = new MoviesSeen();
+                        //movies.id = Integer.parseInt(id);
+                        moviesNew.state = "s";
+                        moviesNew.title = etTitleSeen.getText().toString();
+                        moviesNew.genre = spGenreSeen.getSelectedItem().toString();
+                        moviesNew.comments = etCommentsSeen.getText().toString();
+                        moviesNew.ratings = rbRatingSeen.getNumStars();
+                        actions.addSeen(movies);
+                        Toast.makeText(this, "Movie Added", Toast.LENGTH_LONG).show();
+                        finish();
+                        startActivity(getIntent());
+                    }
                 }
 
                 break;

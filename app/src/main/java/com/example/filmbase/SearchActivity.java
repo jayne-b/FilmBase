@@ -101,7 +101,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             MovieActionsSeen actionsSeen = new MovieActionsSeen(getApplicationContext());
             movieListWant = actions.getMovieWantSearch();
             movieListSeen = actionsSeen.getMovieSeenSearch();
-            //ArrayList<HashMap<String, String>> movieList = new ArrayList<>();
+            movieList = new ArrayList<>();
             movieList.addAll(movieListWant);
             movieList.addAll(movieListSeen);
             ListAdapter arrayAdapter = new SimpleAdapter( this,

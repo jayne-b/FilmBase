@@ -66,7 +66,7 @@ public class MovieActionsSeen {
     }
 
 
-    public ArrayList<HashMap<String, String>> getMovie(int id) {
+    public ArrayList<HashMap<String, String>> getMovieSeen(int id) {
         //MoviesSeen moviesSeenList = new MoviesSeen();
         ArrayList<HashMap<String, String>> moviesSeenList = new ArrayList<>();
 

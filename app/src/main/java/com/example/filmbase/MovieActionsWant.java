@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import static com.example.filmbase.MoviesWant.*;
 
 
 public class MovieActionsWant {
+    private static final String TAG = "";
     //private MoviesWant moviesWant;
     private MovieDBHelper movieDBHelper;
 
@@ -28,7 +30,6 @@ public class MovieActionsWant {
 
         SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        //values.put(MoviesSeen.KEY_ID, moviesWant.getId());
         values.put(MoviesWant.KEY_state, moviesWant.getState());
         values.put(MoviesWant.KEY_title, moviesWant.getTitle());
         values.put(MoviesWant.KEY_genre, moviesWant.getGenre());
@@ -46,7 +47,8 @@ public class MovieActionsWant {
     public void delete(int id) {
 
         SQLiteDatabase db = movieDBHelper.getWritableDatabase();
-        db.delete(TABLE, KEY_ID + "= ?", new String[] { String.valueOf(id)});
+        Log.d(TAG, "delete: id = " + id);
+        db.delete(MoviesWant.TABLE, MoviesWant.KEY_ID + "= ?", new String[] { String.valueOf(id)});
         db.close();
     }
 
@@ -55,19 +57,19 @@ public class MovieActionsWant {
         SQLiteDatabase db = movieDBHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        //values.put(KEY_ID, movies.getId());
-        values.put(KEY_state, movies.getState());
-        values.put(KEY_title, movies.getTitle());
-        values.put(KEY_genre, movies.getGenre());
-        values.put(KEY_comments, movies.getComments());
-        values.put(KEY_day, movies.getDay());
-        values.put(KEY_month, movies.getMonth());
-        values.put(KEY_year, movies.getYear());
+        values.put(MoviesWant.KEY_ID, movies.getId());
+        values.put(MoviesWant.KEY_state, movies.getState());
+        values.put(MoviesWant.KEY_title, movies.getTitle());
+        values.put(MoviesWant.KEY_genre, movies.getGenre());
+        values.put(MoviesWant.KEY_comments, movies.getComments());
+        values.put(MoviesWant.KEY_day, movies.getDay());
+        values.put(MoviesWant.KEY_month, movies.getMonth());
+        values.put(MoviesWant.KEY_year, movies.getYear());
 
-        db.update(TABLE, values, KEY_ID + "= ?", new String[] { String.valueOf(movies.id)});
+        db.update(MoviesWant.TABLE, values, MoviesWant.KEY_ID + "= ?", new String[] { String.valueOf(movies.id)});
         db.close();
     }
-    public ArrayList<HashMap<String, String>> getMovieList() {
+    public ArrayList<HashMap<String, String>> getMovieWant() {
         //MoviesWant moviesWantList = new MoviesWant();
         ArrayList<HashMap<String, String>> moviesWantList = new ArrayList<HashMap<String, String>>();
 
