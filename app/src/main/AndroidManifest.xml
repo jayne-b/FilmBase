@@ -13,7 +13,8 @@
         <activity android:name=".WantInfoEditActivity" />
         <activity android:name=".WantInfoActivity" />
         <activity android:name=".SeenInfoActivity" />
-        <activity android:name=".SearchActivity" />
+        <activity android:name=".SearchActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".WantActivity" />
         <activity android:name=".SeenActivity" />
         <activity android:name=".MainActivity">
