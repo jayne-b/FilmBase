@@ -77,8 +77,9 @@ public class SeenActivity extends AppCompatActivity implements View.OnClickListe
                     moviesNew.ratings = rbRatingSeen.getNumStars();
                     actionsNew.addSeen(moviesNew);
                     Toast.makeText(this, "Movie Added", Toast.LENGTH_LONG).show();
+                    Intent intentMain = new Intent(this, MainActivity.class);
                     finish();
-                    startActivity(getIntent());
+                    startActivity(intentMain);
                 } else {
                     MovieActionsSeen actions = new MovieActionsSeen(getApplicationContext());
                     MoviesSeen movies = new MoviesSeen();
